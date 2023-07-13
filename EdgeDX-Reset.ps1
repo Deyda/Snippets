@@ -17,7 +17,11 @@
  .EXAMPLE
   None
 #>
-
-Stop-Service "ControlUp Agent Manager Service"
+$Service = Get-Service -Name ControlUp Agent Manager Service -ErrorAction SilentlyContinue
+                If ($Service.Length -gt 0) {
+                    Stop-Service "ControlUp Agent Manager Service"
+                }
 Stop-Service "ControlUp SIP Agent"
+Write-Host "Edge DX Services stopped"
 Remove-Item "C:\ProgramData\Avacee\sip_agent\cachefiles\uid*"
+Write-Host "Edge DX Cache file deleted"
